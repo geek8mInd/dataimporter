@@ -1,10 +1,12 @@
 
 <?php
 namespace App\Infrastructure\Mappings\Fluent;
-use App\Domain\Entities\Task;
+
+use App\Domain\Entities\Customer;
 use LaravelDoctrine\Fluent\EntityMapping;
 use LaravelDoctrine\Fluent\Fluent;
-class TaskMapping extends EntityMapping
+
+class CustomerMapping extends EntityMapping
 {
     /**
      * Returns the fully qualified name of the class that this mapper maps.
@@ -13,7 +15,7 @@ class TaskMapping extends EntityMapping
      */
     public function mapFor()
     {
-        return Task::class;
+        return Customer::class;
     }
     /**
      * Load the object's metadata through the Metadata Builder object.

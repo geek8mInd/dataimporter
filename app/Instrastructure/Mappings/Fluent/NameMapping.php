@@ -1,9 +1,11 @@
     
 <?php
 namespace App\Infrastructure\Mappings\Fluent;
+
 use App\Domain\ValueObjects\Name;
 use LaravelDoctrine\Fluent\EmbeddableMapping;
 use LaravelDoctrine\Fluent\Fluent;
+
 class NameMapping extends EmbeddableMapping
 {
     /**
