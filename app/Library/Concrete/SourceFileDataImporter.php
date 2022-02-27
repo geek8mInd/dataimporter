@@ -13,17 +13,14 @@ class SourceFileDataImporter implements DataImporterBundle
 	
 	protected $config;
 
-	public function __construct()
+	public function fetchData()
 	{
 		$this->config = array
 		(
 			'resource_file_path' => Config::get('dataimporter.webservice.file_resource_path'),
 			'resource_file_format' => Config::get('dataimporter.webservice.payload_format')
 		);
-	}
 
-	public function fetchData()
-	{
 		return $response = 'consume the resource using fread_csv()';
 	}
 

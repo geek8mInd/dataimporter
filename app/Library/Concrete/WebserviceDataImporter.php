@@ -29,9 +29,7 @@ class WebserviceDataImporter implements DataImporterBundle
 	{
 		$this->config = array
 		(
-			// 'uri_resource' => Config::get('dataimporter.webservice.uri_resource'),
 			'http_method' => 'GET',
-			// 'payload_format' => Config::get('dataimporter.webservice.payload_format'),
 			'allowed_columns' => array(
 				'firstname',
 				'lastname',
@@ -53,12 +51,14 @@ class WebserviceDataImporter implements DataImporterBundle
 	{
         
 		return true;
+
+		$payload_format = Config::get('dataimporter.webservice.payload_format');
 		
         $this->client = new Client();
 
         $request = $this->client->request(
         	$this->config['http_method'], 
-        	$this->config['uri_resource'],
+        	Config::get('dataimporter.webservice.uri_resource'),
         	[
 	            "verify" => false
         	]);

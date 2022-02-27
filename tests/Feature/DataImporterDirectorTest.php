@@ -19,7 +19,6 @@ class DataImporterDirectorTest extends TestCase
 
     protected function setUp()
     {
-        dd(getenv('DATAIMPORTER_URL'));
         parent::setUp();
         $this->director = new DataImporter();
     }
