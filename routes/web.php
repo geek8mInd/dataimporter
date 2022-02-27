@@ -10,12 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Library\Concrete\WebserviceDataImporter;
+Route::get('/getraw', 'WebserviceController@getraw');
 
 Route::get('/', function () {
-    return new WebserviceDataImporter();
+    return view('welcome');
 });
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });

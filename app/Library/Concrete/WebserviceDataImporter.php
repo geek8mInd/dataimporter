@@ -49,11 +49,7 @@ class WebserviceDataImporter implements DataImporterBundle
 	 */
 	public function fetchData()
 	{
-        
-		return true;
 
-		$payload_format = Config::get('dataimporter.webservice.payload_format');
-		
         $this->client = new Client();
 
         $request = $this->client->request(
@@ -62,9 +58,10 @@ class WebserviceDataImporter implements DataImporterBundle
         	[
 	            "verify" => false
         	]);
-        $data = self::getResponseData($request);
 
-        return $data;
+        $this->raw_datasource = self::getResponseData($request);
+
+        return $this->raw_datasource;
 	}
 
     /**
@@ -112,6 +109,8 @@ class WebserviceDataImporter implements DataImporterBundle
 	public function prepareData()
 	{
 		$filtered_raw_data = array();
+
+		$payload_format = Config::get('dataimporter.webservice.payload_format');
 
 		return $this->sanitized_data = json_encode($filtered_raw_data);
 	}

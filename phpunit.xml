@@ -28,7 +28,7 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
         <env name="DATAIMPORTER_PLATFORM" value="webservice"/>
-        <env name="DATAIMPORTER_URL" value="http://dataimporter.local/customers"/>
+        <env name="DATAIMPORTER_URL" value="http://dataimporter.local/getraw"/>
         <env name="DATAIMPORTER_FILEPATH" value=""/>
         <env name="DATAIMPORTER_PAYLOAD_FORMAT" value="json"/>
     </php>
