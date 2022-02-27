@@ -15,13 +15,13 @@ return [
     */
 
     'webservice' => [
-        'uri_resource' => env('dataimporter_url'),
-        'payload_format' => env('dataimporter_payload_format'),
+        'uri_resource' => env('DATAIMPORTER_URL', ''),
+        'payload_format' => env('DATAIMPORTER_PAYLOAD_FORMAT', ''),
     ],
 
     'file' => [
-        'file_resource_path' => env('dataimporter_filepath'),
-        'payload_format' => env('dataimporter_payload_format'),
+        'file_resource_path' => env('DATAIMPORTER_FILEPATH', ''),
+        'payload_format' => env('DATAIMPORTER_PAYLOAD_FORMAT', ''),
     ],
 
 ];

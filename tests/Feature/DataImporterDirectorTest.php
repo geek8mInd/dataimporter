@@ -6,7 +6,6 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Config;
 
 use App\Library\Concrete\WebserviceDataImporter;
 use App\Library\Concrete\SourceFileDataImporter;
@@ -20,6 +19,7 @@ class DataImporterDirectorTest extends TestCase
 
     protected function setUp()
     {
+        dd(getenv('DATAIMPORTER_URL'));
         parent::setUp();
         $this->director = new DataImporter();
     }
@@ -39,6 +39,12 @@ class DataImporterDirectorTest extends TestCase
             array(new SourceFileDataImporter()),
             array(new WebserviceDataImporter())
         );
+    }
+
+    public function tearDown()
+    {
+        parent::tearDown();
+        $this->director = null;
     }
 
 }

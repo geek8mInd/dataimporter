@@ -3,7 +3,7 @@
 namespace App\Library\Concrete;
 
 use App\Library\Contract\DataImporterBundle;
-use Illuminate\Support\Facades\Config;
+use Config;
 
 /**
  * Allows to import data source from a physical file path
@@ -17,8 +17,8 @@ class SourceFileDataImporter implements DataImporterBundle
 	{
 		$this->config = array
 		(
-			'resource_file_path' => '/path/to/resource/file',
-			'resource_file_format' => 'csv' 
+			'resource_file_path' => Config::get('dataimporter.webservice.file_resource_path'),
+			'resource_file_format' => Config::get('dataimporter.webservice.payload_format')
 		);
 	}
 

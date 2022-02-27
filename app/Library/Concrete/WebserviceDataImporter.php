@@ -5,7 +5,7 @@ namespace App\Library\Concrete;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use App\Library\Contract\DataImporterBundle;
-use Illuminate\Support\Facades\Config;
+use Config;
 
 /**
  * Allows to import data source from a URI or webservice
@@ -29,9 +29,9 @@ class WebserviceDataImporter implements DataImporterBundle
 	{
 		$this->config = array
 		(
-			'uri_resource' => 'https://sample.example.com/results=100&nat=au',
+			// 'uri_resource' => Config::get('dataimporter.webservice.uri_resource'),
 			'http_method' => 'GET',
-			'payload_format' => 'json',
+			// 'payload_format' => Config::get('dataimporter.webservice.payload_format'),
 			'allowed_columns' => array(
 				'firstname',
 				'lastname',
