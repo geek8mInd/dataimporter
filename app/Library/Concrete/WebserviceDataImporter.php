@@ -29,16 +29,7 @@ class WebserviceDataImporter implements DataImporterBundle
 	{
 		$this->config = array
 		(
-			'http_method' => 'GET',
-			'allowed_columns' => array(
-				'firstname',
-				'lastname',
-				'email',
-				'username',
-				'password',
-				'gender',
-				'nation'
-			)
+			'http_method' => 'GET'
 		);
 
 	}
@@ -108,11 +99,31 @@ class WebserviceDataImporter implements DataImporterBundle
 	 */
 	public function prepareData()
 	{
-		$filtered_raw_data = array();
-
 		$payload_format = Config::get('dataimporter.webservice.payload_format');
 
-		return $this->sanitized_data = json_encode($filtered_raw_data);
+        $mapped_result = array();
+
+        $raw_customers = (array_key_exists('results', $this->raw_datasource['result']))? $this->raw_datasource['result']['results'] : array();
+
+        if (!empty($raw_customers))
+        {
+            foreach($raw_customers as $customer)
+            {
+                $mapped_result[] = array(
+                    'firstname' => $customer['name']['first'],
+                    'lastname' => $customer['name']['last'],
+                    'email' => $customer['email'],
+                    'username' => $customer['login']['username'],
+                    'gender' => $customer['gender'],
+                    'country' => $customer['location']['country'],
+                    'city' => $customer['location']['city'],
+                    'phone' => $customer['phone'],
+                    'password' => md5($customer['login']['password']),
+                );
+            }
+        }
+
+		return $this->sanitized_data = json_encode($mapped_result);
 	}
 
 	/**

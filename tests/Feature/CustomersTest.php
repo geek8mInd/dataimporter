@@ -58,13 +58,6 @@ class CustomersTest extends TestCase
     }
 
     /** @test **/
-    public function testPasswordProp()
-    {
-        $password = $this->customerObj->setPassword(md5('jdelacruz@Z10n'));
-        $this->assertEquals($password, $this->customerObj->getPassword());
-    }
-
-    /** @test **/
     public function testGenderProp()
     {
         $gender = $this->customerObj->setGender('male');

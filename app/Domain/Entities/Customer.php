@@ -44,12 +44,6 @@ class Customer
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     * @var string
-     */
-    private $password;
-
-    /**
      * @ORM\Column(type="string", length=10)
      * @var string
      */
@@ -72,7 +66,6 @@ class Customer
      * @var string
      */
     private $phone;
-
 
     /**
      * @return int
@@ -149,22 +142,6 @@ class Customer
     public function setUsername($username)
     {
         return $this->username = $username;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setPassword($password)
-    {
-        return $this->password = $password;
     }
 
     /**
