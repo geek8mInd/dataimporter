@@ -6,6 +6,8 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use App\Library\Contract\DataImporterBundle;
 use Config;
+use App\Domain\Entities\Customer;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Allows to import data source from a URI or webservice
@@ -128,11 +130,50 @@ class WebserviceDataImporter implements DataImporterBundle
 
 	/**
 	 * Connect on DB ORM and store clean data to tables or collections
-	 * @return [boolean] [returns true if import to storage is success]
+	 * @return [array] [returns true if import to storage is success]
 	 */
 	public function importData()
 	{
-		return $this->is_data_imported = true;
+		$ctr_insert = 0;
+        $ctr_update = 0;
+
+        $customer_data = json_decode($this->sanitized_data, true);
+
+        foreach($customer_data   as $row)
+        {
+            $customer = new Customer();
+            $customer->setLastname($row['lastname']);
+            $customer->setFirstname($row['firstname']);
+            $customer->setEmail($row['email']);
+            $customer->setUsername($row['username']);
+            $customer->setGender($row['gender']);
+            $customer->setCountry($row['country']);
+            $customer->setCity($row['city']);
+            $customer->setPhone($row['phone']);
+
+            $email_exists = \EntityManager::getRepository(Customer::class)
+                ->findOneBy(array('email' => $row['email']));         
+        
+            if (is_null($email_exists))
+            {
+                \EntityManager::persist($customer);
+                \EntityManager::flush();
+
+                $ctr_insert++;
+
+            } else {
+                \EntityManager::flush();
+                $ctr_update++;
+            }
+
+        }
+        
+        return array(
+            'total_raw' => count($customer_data),
+            'total_insert' => $ctr_insert,
+            'total_update' => $ctr_update
+
+        );
 	}
 	
 }

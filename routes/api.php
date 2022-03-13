@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/customers', 'APIController@getAllCustomers')->name('/customers');
-Route::get('/customers/{customer}', 'APIController@getByCustomerID')->name(/customers/{customer});
+Route::get('/customers/{customer}', 'APIController@getByCustomerID')->name('/customers/{customer}');
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

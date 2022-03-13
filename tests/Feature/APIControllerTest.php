@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Domain\Entities\Customer;
 use Response;
+use Doctrine\ORM\EntityManagerInterface;
 
 class APIControllerTest extends TestCase
 {
@@ -42,11 +43,25 @@ class APIControllerTest extends TestCase
         
     }
 
+    public function testGetCustomersReturnsEmptyResultIfNoRecordsFound()
+    {
+        $this->json('GET', 'api/customers', ['Accept' => 'application/json'])
+            ->assertStatus(200)
+            ->assertJson([
+                'code' => 200,
+                'status' => 'ok',
+                'result' => array()
+            ]);
+    }
+
+    /**
+     * @depends testGetCustomersReturnsEmptyResultIfNoRecordsFound
+     */
     public function testGetCustomersReturnsRequiredColumns()
     {
         $response = $this->get('api/customers');
         $json_content = json_decode($response->content(), true);
-        $this->assertNotEmpty($json_content, true);        
+        $this->assertNotEmpty($json_content['result'], true);        
     }
 
     /**

@@ -16,12 +16,18 @@ class WebserviceDataImporterTest extends TestCase
 
     protected $response;
 
+    protected $mapped_data_result;
+
+    protected $imported_data_result;
+
     protected function setUp()
     {
         parent::setUp();
         $this->webserviceImporterObj = new WebserviceDataImporter();
         $this->response = $this->webserviceImporterObj->fetchData();
         $this->mapped_data_result = $this->webserviceImporterObj->prepareData();
+        $this->imported_data_result = $this->webserviceImporterObj->importData();
+
     }
 
     /** @test */
@@ -115,6 +121,13 @@ class WebserviceDataImporterTest extends TestCase
     {
         $result = json_decode($this->mapped_data_result, true);
         $this->assertArrayHasKey('phone', end($result));
+    }
+
+    public function testImportDataMethodReturnsTotalInsertAndUpdate()
+    {
+        $count = $this->imported_data_result['total_insert'] + $this->imported_data_result['total_update'];
+        $this->assertEquals($count, $this->imported_data_result['total_raw']);
+
     }
 
     public function tearDown()

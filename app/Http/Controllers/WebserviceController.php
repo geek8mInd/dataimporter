@@ -191,10 +191,13 @@ class WebserviceController extends Controller
     /**
      * Store the data result set as defined with the required columns on database
      * @param  [array] $data_resultset [Mapped and clean data ready for database storage]
-     * @return [boolean]               [Return of the requested database transaction]
+     * @return [array]                 [Return results against total insert + updated]
      */
     public function storeData($data_resultset)
     {
+
+        $ctr_insert = 0;
+        $ctr_update = 0;
 
         foreach($data_resultset as $row)
         {
@@ -215,13 +218,22 @@ class WebserviceController extends Controller
             {
                 \EntityManager::persist($customer);
                 \EntityManager::flush();
+
+                $ctr_insert++;
+
             } else {
                 \EntityManager::flush();
+                $ctr_update++;
             }
 
         }
         
-        return $email_exists;
+        return array(
+            'total_raw' => count($data_resultset),
+            'total_insert' => $ctr_insert,
+            'total_update' => $ctr_update
+
+        );
 
     }
 }
