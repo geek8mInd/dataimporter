@@ -17,12 +17,24 @@ class APIControllerTest extends TestCase
     {
         $this->json('GET', 'api/customers', ['Accept' => 'application/json'])
             ->assertStatus(200);
+
     }
 
     public function testGetCustomerById()
     {
         $this->json('GET', 'api/customers/1', ['Accept' => 'application/json'])
             ->assertStatus(200);
+    }
+
+    public function testGetCustomersByIdAcceptsIntegerOnly()
+    {
+        $response = $this->get('api/customers/abc')
+            ->assertStatus(200)
+            ->assertJson([
+                'code' => 400,
+                'status' => 'Bad request.',
+                'result' => array()
+            ]);
     }
 
     public function testErrorHandlingIfCustomerNotFound()
@@ -34,13 +46,6 @@ class APIControllerTest extends TestCase
                 'status' => 'Bad request.',
                 'result' => array()
             ]);
-    }
-
-    public function testGetCustomersByIdAcceptsIntegerOnly()
-    {
-        $response = $this->get('api/customers/abc');
-        $this->assertEquals(500, $response->getStatusCode());
-        
     }
 
     public function testGetCustomersReturnsEmptyResultIfNoRecordsFound()

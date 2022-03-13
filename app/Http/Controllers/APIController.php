@@ -36,7 +36,7 @@ class APIController extends Controller
         
     }
 
-    public function getByCustomerID(EntityManagerInterface $em, int $id)
+    public function getByCustomerID(EntityManagerInterface $em, $id)
     {
         $response = array();
         

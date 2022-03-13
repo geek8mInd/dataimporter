@@ -17,6 +17,8 @@ return [
     'webservice' => [
         'uri_resource' => env('DATAIMPORTER_URL', ''),
         'payload_format' => env('DATAIMPORTER_PAYLOAD_FORMAT', ''),
+        'api_slug' => env('DATAIMPORTER_APISLUG', ''),
+        'api_query' => env('DATAIMPORTER_QUERY', '')
     ],
 
     'file' => [

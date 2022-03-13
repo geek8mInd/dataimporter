@@ -43,14 +43,14 @@ class WebserviceDataImporter implements DataImporterBundle
 	public function fetchData()
 	{
 
-        $this->client = new Client();
+        $this->client = new Client(['base_uri' => Config::get('dataimporter.webservice.uri_resource')]);
 
         $request = $this->client->request(
-        	$this->config['http_method'], 
-        	Config::get('dataimporter.webservice.uri_resource'),
-        	[
-	            "verify" => false
-        	]);
+            $this->config['http_method'], 
+            Config::get('dataimporter.webservice.api_slug'),
+            [
+                "verify" => false,
+            ]);
 
         $this->raw_datasource = self::getResponseData($request);
 

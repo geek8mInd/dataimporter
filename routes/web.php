@@ -10,7 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/getraw', 'WebserviceController@getRaw');
+
+Route::get('/getraw', 'WebserviceController@getRaw')->name('/getraw');
 
 // Route::get('/', function () {
 //     return view('welcome');
